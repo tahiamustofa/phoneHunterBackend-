@@ -9,10 +9,22 @@ displayPhone(phoneData);
 }
 
 const displayPhone = phones =>{
-// console.log(phones)
+console.log(phones)
 const divCont = document.getElementById('divCont');
 // clear 
 divCont.textContent ='';
+
+console.log(phones.length);
+const showCont= document.getElementById('show-cont');
+if (phones.length>12) {
+  showCont.classList.remove('hidden')
+} else {
+  showCont.classList.add('hidden')
+}
+
+phones = phones.slice(0,12);
+
+
 phones.forEach(element => {
     // console.log(element) 
     const divPhone = document.createElement('div');
@@ -35,13 +47,34 @@ phones.forEach(element => {
 
 });
 
+// hide 
+toogleloadingSpinner(false);
 } 
 
 const handler = () => {
+  toogleloadingSpinner(true);
    const inputField = document.getElementById('inputField');
    const searchText = inputField.value;
     console.log(searchText)
     loadPhone(searchText);
   };
+
+  
+  const handleSearch = () =>{
+    toogleloadingSpinner(true);
+    const searchField= document.getElementById('searchField');
+    const searchText = searchField.value;
+    loadPhone(searchText);
+  }
+
+  const toogleloadingSpinner = (loadSpinner)=>{
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    if (loadSpinner) {
+      loadingSpinner.classList.remove('hidden'); 
+    } else {
+      loadingSpinner.classList.add('hidden'); 
+    }
+    
+  }
 // loadPhone();
 
