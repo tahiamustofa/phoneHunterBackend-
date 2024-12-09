@@ -22,9 +22,9 @@
                 class="input input-bordered w-full max-w-xs" />
             <button onclick="handler()" class="btn btn-secondary">Search</button>
 
-            <input type="text" id="searchField" placeholder="Search here"
+            <!-- <input type="text" id="searchField" placeholder="Search here"
                 class="input input-bordered w-full max-w-xs" />
-            <button onclick="handleSearch()" class="btn btn-warning">Search here</button>
+            <button onclick="handleSearch()" class="btn btn-warning">Search here</button> -->
         </section>
         <section>
             <div id="loadingSpinner" class="my-40  flex items-center justify-center hidden">
@@ -39,8 +39,10 @@
             <div id="divCont" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
             </div>
-            <div class="hidden" id="show-cont">
-                <button class="btn btn-warning bg-yellow-300">show all</button>
+            <div class="hidden my-8 text-center" id="show-cont">
+                <button onclick="handler()" class="btn btn-warning bg-yellow-300">
+                    show all
+                </button>
             </div>
         </section>
     </main>

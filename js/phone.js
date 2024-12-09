@@ -1,14 +1,14 @@
-const loadPhone = async(searchText)=> {
+const loadPhone = async(searchText,isShowAll)=> {
 const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
 const data = await res.json();
 const phoneData = data.data;
 // console.log(data)
 // console.log(data.status);
 // console.log(data.data);
-displayPhone(phoneData);
+displayPhone(phoneData,isShowAll);
 }
 
-const displayPhone = phones =>{
+const displayPhone = (phones,isShowAll) =>{
 console.log(phones)
 const divCont = document.getElementById('divCont');
 // clear 
@@ -16,14 +16,15 @@ divCont.textContent ='';
 
 console.log(phones.length);
 const showCont= document.getElementById('show-cont');
-if (phones.length>12) {
+if (phones.length>12 && !isShowAll) {
   showCont.classList.remove('hidden')
 } else {
   showCont.classList.add('hidden')
 }
-
-phones = phones.slice(0,12);
-
+// console.log('is Show All',isShowAll); 
+if (!isShowAll) {
+  phones = phones.slice(0,12);
+} 
 
 phones.forEach(element => {
     // console.log(element) 
@@ -51,21 +52,20 @@ phones.forEach(element => {
 toogleloadingSpinner(false);
 } 
 
-const handler = () => {
+const handler =(isShowAll) => {
   toogleloadingSpinner(true);
    const inputField = document.getElementById('inputField');
    const searchText = inputField.value;
     console.log(searchText)
-    loadPhone(searchText);
+    loadPhone(searchText,isShowAll);
   };
-
-  
-  const handleSearch = () =>{
-    toogleloadingSpinner(true);
-    const searchField= document.getElementById('searchField');
-    const searchText = searchField.value;
-    loadPhone(searchText);
-  }
+ 
+  // const handleSearch = () =>{
+  //   toogleloadingSpinner(true);
+  //   const searchField= document.getElementById('searchField');
+  //   const searchText = searchField.value;
+  //   loadPhone(searchText);
+  // }
 
   const toogleloadingSpinner = (loadSpinner)=>{
     const loadingSpinner = document.getElementById('loadingSpinner');
@@ -76,5 +76,11 @@ const handler = () => {
     }
     
   }
+  // showAll 
+// const handleShowAll = () => {
+//   handler(true);
+// };
+
 // loadPhone();
+
 
