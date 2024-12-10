@@ -2,6 +2,7 @@ const loadPhone = async(searchText,isShowAll)=> {
 const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
 const data = await res.json();
 const phoneData = data.data;
+console.log('all data',phoneData);
 // console.log(data)
 // console.log(data.status);
 // console.log(data.data);
@@ -10,9 +11,9 @@ displayPhone(phoneData,isShowAll);
 
 const displayPhone = (phones,isShowAll) =>{
 console.log(phones)
-const divCont = document.getElementById('divCont');
+const divCont = document.getElementById('divCont'); //divcont append korar por abr ekhane back kortese 
 // clear 
-divCont.textContent ='';
+divCont.textContent =''; 
 
 console.log(phones.length);
 const showCont= document.getElementById('show-cont');
@@ -39,8 +40,8 @@ phones.forEach(element => {
                   <h2 class="card-title">${element.phone_name}</h2>
                   
                   <p>${element.brand} If a dog chews shoes whose shoes does he choose?</p>
-                  <div class="card-actions justify-end">
-                    <button class="btn btn-secondary">Buy Now</button>
+                  <div class="card-actions justify-center">
+                    <button onclick="showDetails('${element.slug}'); my_modal.showModal()" class="btn btn-secondary">Show Details</button>
                   </div>
                 </div>
     `;
@@ -76,11 +77,15 @@ const handler =(isShowAll) => {
     }
     
   }
-  // showAll 
-// const handleShowAll = () => {
-//   handler(true);
-// };
+  
+const handleShowAll = () => {
+  handler(true);
+};
 
+
+const showDetails=async(id)=>{
+  const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
+  const data = await res.json();
+console.log('clicked',data)
+}
 // loadPhone();
-
-
