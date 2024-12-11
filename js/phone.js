@@ -1,21 +1,18 @@
-const loadPhone = async(searchText,isShowAll)=> {
+const loadPhone = async(searchText='13',isShowAll)=> {
 const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
 const data = await res.json();
 const phoneData = data.data;
-console.log('all data',phoneData);
-// console.log(data)
-// console.log(data.status);
-// console.log(data.data);
+// console.log('all data',phoneData);
 displayPhone(phoneData,isShowAll);
 }
 
 const displayPhone = (phones,isShowAll) =>{
-console.log(phones)
+// console.log(phones)
 const divCont = document.getElementById('divCont'); //divcont append korar por abr ekhane back kortese 
 // clear 
 divCont.textContent =''; 
 
-console.log(phones.length);
+// console.log(phones.length);
 const showCont= document.getElementById('show-cont');
 if (phones.length>12 && !isShowAll) {
   showCont.classList.remove('hidden')
@@ -41,12 +38,11 @@ phones.forEach(element => {
                   
                   <p>${element.brand} If a dog chews shoes whose shoes does he choose?</p>
                   <div class="card-actions justify-center">
-                    <button onclick="showDetails('${element.slug}'); my_modal.showModal()" class="btn btn-secondary">Show Details</button>
+                    <button onclick="showDetails('${element.slug}')" class="btn btn-secondary">Show Details</button>
                   </div>
                 </div>
     `;
     divCont.appendChild(divPhone);
-
 });
 
 // hide 
@@ -86,6 +82,26 @@ const handleShowAll = () => {
 const showDetails=async(id)=>{
   const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`)
   const data = await res.json();
-console.log('clicked',data)
+  const phone = data.data; 
+console.log(phone);
+showDetailsBtn(phone);
 }
-// loadPhone();
+const showDetailsBtn=(phone)=>{
+  my_modal.showModal();
+  const showName = document.getElementById('show-name');
+  showName.innerText = `${phone.name}`;
+  const showDiv = document.getElementById('showDiv');
+  showDiv.innerHTML= `<div class="bg-purple-300 py-10">
+   <img class="mx-auto bg-purple-500 box-border" src="${phone.image}" alt="">
+  </div>
+  <p><span class="text-xl font-bold text-pink-900 mr-1">Storage:</span> ${phone?.mainFeatures?.storage}</p>
+   <p><span class="text-xl font-bold text-pink-900 mr-1">displaySize:</span> ${phone?.mainFeatures?.displaySize}</p>
+ <p><span class="text-xl font-bold text-pink-900 mr-1">chipSet:</span> ${phone?.mainFeatures?.chipSet}</p>
+ <p><span class="text-xl font-bold text-pink-900 mr-1">memory:</span> ${phone?.mainFeatures?.memory}</p>
+  <p><span class="text-xl font-bold text-pink-900 mr-1">slug:</span> ${phone?.slug}</p>
+<p><span class="text-xl font-bold text-pink-900 mr-1">releaseDate:</span> ${phone?.releaseDate}</p>
+<p><span class="text-xl font-bold text-pink-900 mr-1">brand:</span> ${phone?.brand}</p>
+<p><span class="text-xl font-bold text-pink-900 mr-1">GPS:</span> ${phone?.others?.GPS}</p>
+  `
+}
+loadPhone();
