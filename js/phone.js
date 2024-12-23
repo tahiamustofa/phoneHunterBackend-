@@ -31,7 +31,7 @@ console.log(phones)
   phones.forEach(element => {
     console.log(element)
     const divPhone = document.createElement('div');
-    divPhone.classList = `card bg-gray-100 shadow-xl p-4`
+    divPhone.classList = `card bg-gray-100 p-4`
     divPhone.innerHTML = `<figure>
                   <img
                     src="${element.image}"
